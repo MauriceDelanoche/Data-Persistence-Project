@@ -10,21 +10,29 @@ public class Brick : MonoBehaviour
     
     public int PointValue;
 
+
+
     void Start()
     {
+        // NEW COLOR
+        Color pink = new Color(1f, 0.18f, 0.8f);
+        Color bluec = new Color(0.024f, 0.482f, 0.761f);
+        Color orange = new Color(1f, 0.533f, 0.067f);
+
+
         var renderer = GetComponentInChildren<Renderer>();
 
         MaterialPropertyBlock block = new MaterialPropertyBlock();
         switch (PointValue)
         {
             case 1 :
-                block.SetColor("_BaseColor", Color.green);
+                block.SetColor("_BaseColor", pink);
                 break;
             case 2:
-                block.SetColor("_BaseColor", Color.yellow);
+                block.SetColor("_BaseColor", orange);
                 break;
             case 5:
-                block.SetColor("_BaseColor", Color.blue);
+                block.SetColor("_BaseColor", bluec);
                 break;
             default:
                 block.SetColor("_BaseColor", Color.red);

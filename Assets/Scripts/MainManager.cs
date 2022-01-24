@@ -18,6 +18,17 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    //save
+    public Text bestscore;
+
+    //SOUND EFFECTS
+
+    
+    public AudioClip gameOverSound;
+    public AudioClip brickSound;
+    private AudioSource sounds;
+
+
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +47,16 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+
+        // save
+        bestscore.text = ("Best Score : " + PlayerPrefs.GetString("HighPlayerName", "xxx") + " :  " + PlayerPrefs.GetInt("HighScore", 0).ToString());
+
+        //Sounds
+        sounds = GetComponent<AudioSource>();
+
+
+
     }
 
     private void Update()
@@ -60,17 +81,47 @@ public class MainManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+
+
+
+        // HIGH SCORE
+        
+        if (m_Points > PlayerPrefs.GetInt("HighScore", 0))
+        {
+
+            PlayerPrefs.SetInt("HighScore", m_Points);
+            
+            Debug.Log("highscore");
+
+
+            PlayerPrefs.SetString("HighPlayerName", SaveManager.Instance.player_name);
+            bestscore.text = ("Best Score : " + PlayerPrefs.GetString("HighPlayerName") + " :  " + PlayerPrefs.GetInt("HighScore"));
+
+            
+
+
+        }
     }
 
     void AddPoint(int point)
     {
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
+
+        sounds.PlayOneShot(brickSound);
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        sounds.PlayOneShot(gameOverSound);
     }
+
+
+
+  
+
+    
 }

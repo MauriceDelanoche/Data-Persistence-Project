@@ -5,15 +5,24 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    public AudioClip bounce;
+    private AudioSource bouncing;
+
+
     private Rigidbody m_Rigidbody;
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+
+        bouncing = GetComponent<AudioSource>();
     }
     
     private void OnCollisionExit(Collision other)
     {
+        //SOUND
+        bouncing.PlayOneShot(bounce);
+
         var velocity = m_Rigidbody.velocity;
         
         //after a collision we accelerate a bit
