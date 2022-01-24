@@ -97,6 +97,8 @@ public class MainManager : MonoBehaviour
             PlayerPrefs.SetString("HighPlayerName", SaveManager.Instance.player_name);
             bestscore.text = ("Best Score : " + PlayerPrefs.GetString("HighPlayerName") + " :  " + PlayerPrefs.GetInt("HighScore"));
 
+            Debug.Log(SaveManager.Instance.player_name);
+
             
 
 
